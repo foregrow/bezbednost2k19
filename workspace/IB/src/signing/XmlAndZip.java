@@ -1,16 +1,14 @@
 package signing;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,7 +30,6 @@ public class XmlAndZip {
 		
 		private static String photosXmlPath = "./data/photos.xml";
 		private static String photosXmlSignedPath = "./data/photosSigned.xml";
-		private static String path = "";
 
 		public static void main(String[] args) {
 			
@@ -43,7 +40,7 @@ public class XmlAndZip {
 	    	String in = scanner.nextLine();
 	    	scanner.close();
 	    	File f = new File(in);
-	    	path = in;
+	    	
 	    	try {
 	    		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -98,34 +95,9 @@ public class XmlAndZip {
 		         StreamResult result = new StreamResult(xml);
 		         transformer.transform(source, result);  
 		            
-		         Signature signature = new Signature();
-		         signature.signingXml();
-		         files.add(xmlSigned);
-		          
-		       
-		  		
-	  			FileOutputStream fos = new FileOutputStream(path + ".zip");
-		  		ZipOutputStream zipOut = new ZipOutputStream(fos);
-		  		
-		  		for (File file : files) {
-		  			FileInputStream fis = new FileInputStream(file);
-		  			ZipEntry zipEntry = new ZipEntry(file.getName());
-		  			zipOut.putNextEntry(zipEntry);
-		  			
-		  			byte[] bytes = new byte[1024];
-		  			int length;
-		  			
-		  			while((length = fis.read(bytes)) >= 0) {
-		  				zipOut.write(bytes, 0, length);
-		  			}
-		  			
-		  			fis.close();
-		  		}
-		  		
-		  		zipOut.close();
-		  		fos.close();		
-		  		
-		  		System.out.println("Zipovano! ");
+		          Signature signature = new Signature();
+		          signature.signingXml();
+		          files.add(xmlSigned);
 		            
 	    	
 			} catch (Exception e) {
