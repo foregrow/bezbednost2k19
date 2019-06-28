@@ -23,12 +23,18 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import dao.ConnectionManager;
+import dao.UserDAO;
+import model.User;
+
 public class XmlAndZip {
 
 		
 
 	
 		private static List<File> files = new ArrayList<>();
+		private static List<User> users = new ArrayList<>();
+		private static User user = new User();
 		
 		private static String photosXmlPath = "./data/photos.xml";
 		private static String photosXmlSignedPath = "./data/photosSigned.xml";
@@ -36,6 +42,48 @@ public class XmlAndZip {
 		
 		public static void main(String[] args) {
 			
+			ConnectionManager.open();
+			
+			users = UserDAO.getAllUsers();
+			
+	
+			boolean ulogovan = false;
+			
+			while(!ulogovan) {
+
+				
+				System.out.println("Unesite email: ");
+				
+				
+				Scanner scanner = new Scanner(System.in);
+				String email = scanner.nextLine();
+				
+				System.out.println("Unesite password: ");
+				
+				
+				Scanner scanner1 = new Scanner(System.in);
+				String password = scanner1.nextLine();
+				
+			for(User u: users) {
+				if(email.equals(u.getEmail()) && password.equals(u.getPassword())) {
+					ulogovan = true;
+					user.setEmail(email);
+					user.setPassword(password);
+					break;
+					}
+				}
+			if(!ulogovan) {
+				System.out.println("Pogresan email ili lozinka");
+			}
+			}
+			
+			if(ulogovan) {
+				LoginSucces();
+			}
+	    	
+		}
+		
+		private static void LoginSucces() {
 			
 	    	System.out.println("Unesite putanju do foldera: ");
 
@@ -81,7 +129,7 @@ public class XmlAndZip {
 	                  
 	                  
 	                  Element user = doc.createElement("username");
-	                  user.appendChild(doc.createTextNode("username"));
+	                  user.appendChild(doc.createTextNode(XmlAndZip.user.getEmail()));
 	                  photoElement.appendChild(user);
 
 					}
@@ -103,8 +151,9 @@ public class XmlAndZip {
 		          files.add(xmlSigned);
 		            
 		        
-		  		
-		  		FileOutputStream fos = new FileOutputStream(path + ".zip");
+		        String newPath = path+"//"+user.getEmail()+".zip";
+ 		  		
+		  		FileOutputStream fos = new FileOutputStream(newPath);
 		  		ZipOutputStream zipOut = new ZipOutputStream(fos);
 		  		
 		  		for (File file : files) {
@@ -131,6 +180,5 @@ public class XmlAndZip {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-	    	
 		}
 }

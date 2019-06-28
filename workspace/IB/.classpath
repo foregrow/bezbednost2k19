@@ -5,5 +5,9 @@
 	<classpathentry kind="lib" path="bcprov-jdk15on-148.jar"/>
 	<classpathentry kind="lib" path="commons-logging-1.1.2.jar"/>
 	<classpathentry kind="lib" path="xmlsec-1.5.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-dbcp2-2.5.0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-pool2-2.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-8.0.14.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
