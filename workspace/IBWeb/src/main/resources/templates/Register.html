@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Register</title>
+</head>
+<body>
+
+       <p id="parag">Register</p>
+      	<form action="/register" method="post">
+              <table id="registerTable">
+                  <tr>
+                      <td><input type="text" name="userName" placeholder="Email" id="userNameInput" autocomplete="off"></td>
+                  </tr>
+                  <tr>
+                      <td><input type="password" name="password" placeholder="Password" id="passwordInput" autocomplete="off"></td>
+                  </tr>
+                  <tr>
+                      <td><button type="submit" id="registerSubmit">Submit</button></td>
+                  </tr>
+              </table>
+          </form>
+</body>
+</html>

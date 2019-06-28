@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Login</title>
+</head>
+<body>
+	<div id="loginWindow">
+        <div id="windowBody">
+	        <p id="parag"><i class="fas fa-sign-in-alt"></i> Login</p>
+        	<form action="/login" method="get">
+                <table id="loginTable">
+                    <tr>
+                        <td><input type="text" name="userName" placeholder="Korisnicko ime" id="userNameInput" autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <td><input type="password" name="password" placeholder="Lozinka" id="passwordInput" autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit" id="loginSubmit">Submit</button></td>
+                    </tr>
+                    <tr>
+                        <td><a id="reg" href="/reg">New user? Register here</a></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
