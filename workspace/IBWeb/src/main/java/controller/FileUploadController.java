@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,18 @@ public class FileUploadController {
 			return "Unauthorized";
 		}
 		
+	}
+	
+	@GetMapping("/role")
+	public static ResponseEntity<Object> role() {
+		
+		String role = "regular";
+		if(ApiToken.user.getAuthority().getId() == 2) {
+			role = "admin";
+			System.out.println(role);
+		}
+		
+		return new ResponseEntity<Object>(role,HttpStatus.OK);
 	}
 	
 	@PostMapping("/upload")

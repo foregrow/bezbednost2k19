@@ -37,7 +37,6 @@ import util.Subject;
 @Controller
 public class LoginController {
 
-	
 	@GetMapping("/")
 	public static String loginPage(Model model) {
 		return "Login";
@@ -134,6 +133,7 @@ public class LoginController {
 		return "Login";
 	}
 	
+	
 	@GetMapping("/manage")
 	public static String manage() {
 		if(ApiToken.tokenActive()) {
@@ -147,9 +147,7 @@ public class LoginController {
 	
 	@PostMapping("/managing")
 	public static String managingUsers(@RequestParam("email") String email) {
-		if(ApiToken.user.getAuthority().getId() == 2) {
-			
-		}
+		
 		List<User> users = UserDAO.getAllUsers();
 		
 		for(User u : users) {
