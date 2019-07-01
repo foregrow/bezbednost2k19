@@ -1,10 +1,16 @@
 package controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,4 +77,82 @@ public class FileUploadController {
 		}
 		
 	}
+	
+	@GetMapping("/download")
+	public static String download() throws IOException {
+		String path = "";
+		String path1 = "";
+		if(ApiToken.user != null) {
+			path = "data/" + ApiToken.user.getEmail();	
+			path1 = "E:/" + ApiToken.user.getEmail();
+		}
+	
+		File srcDir = new File(path);
+		File destDir = new File(path1);
+		
+		copyDir(srcDir, destDir);
+		
+		return "uploadview";
+	}
+	
+	public static void copyDir(File src, File dest) throws IOException{
+		
+		if(src.isDirectory()) {
+			if(!dest.exists()) {
+				dest.mkdir();
+			}
+
+			String files[] = src.list();
+			
+			for (String fileName : files) {
+				File srcFile = new File(src, fileName);
+				File destFile = new File(dest, fileName);
+				copyDir(srcFile, destFile);
+			}
+		}
+		else {
+			fileCopy(src, dest);
+		}
+		
+		
+	}
+	
+	public static void fileCopy(File src, File dest) throws FileNotFoundException, IOException {
+		
+		InputStream in = null;
+		OutputStream out = null;
+		
+		try {
+			in = new FileInputStream(src);
+			out = new FileOutputStream(dest);
+			
+			byte[] buffer = new byte[1024];
+			
+			int length;
+			while((length = in.read(buffer)) > 0) {
+				out.write(buffer, 0, length);
+			}
+		}
+		finally {
+			if(in != null) {
+				in.close();
+			}
+			if(out != null) {
+				out.close();
+			}
+		}
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+

@@ -13,7 +13,7 @@ public class ConnectionManager {
 
 	private static final String DATABASE = "localhost:3306/ib";
 	private static final String USER_NAME = "root";
-	private static final String PASSWORD = "r00t";
+	private static final String PASSWORD = "root";
 
 	private static DataSource dataSource;
 

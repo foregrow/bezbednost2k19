@@ -65,7 +65,7 @@ public class UserDAO {
 
 		PreparedStatement pstmt = null;
 		try {
-			String query = "INSERT INTO users (email, pw, cert, active, authority) "
+			String query = "INSERT INTO users (email, pw, certificate, active, authority) "
 					+ "VALUES (?, ?, ?, ?, ?)";
 
 			pstmt = conn.prepareStatement(query);
